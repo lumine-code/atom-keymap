@@ -37,7 +37,9 @@ describe "CmdOrCtrl modifier in .normalizeKeystrokes(keystrokes)", ->
 
   it "resolves CmdOrCtrl to cmd on darwin, ctrl on win32/linux", ->
     assert.equal(normalizeKeystrokes('CmdOrCtrl-f'), "#{cmdOrCtrl}-f")
-    assert.equal(normalizeKeystrokes('CmdOrCtrl-shift-f'), "shift-#{cmdOrCtrl}-F")
+    # canonical order is ctrl < alt < shift < cmd, so ctrl precedes shift but shift precedes cmd
+    expectedWithShift = if process.platform is 'darwin' then 'shift-cmd-F' else 'ctrl-shift-F'
+    assert.equal(normalizeKeystrokes('CmdOrCtrl-shift-f'), expectedWithShift)
     assert.equal(normalizeKeystrokes('CmdOrCtrl-k CmdOrCtrl-d'), "#{cmdOrCtrl}-k #{cmdOrCtrl}-d")
 
 describe ".isModifierKeyup(keystroke)", ->
