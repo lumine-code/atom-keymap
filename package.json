@@ -1,6 +1,6 @@
 {
   "name": "@pulsar-edit/atom-keymap",
-  "version": "9.0.3",
+  "version": "9.1.0",
   "description": "Pulsar's DOM-aware keymap module",
   "main": "./src/keymap-manager",
   "engines": {
