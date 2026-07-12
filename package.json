@@ -16,14 +16,13 @@
   "repository": "https://github.com/pulsar-edit/atom-keymap",
   "license": "MIT",
   "dependencies": {
-    "@electron/rebuild": "^3.2.11",
+    "@electron/rebuild": "^4.2.0",
     "clear-cut": "^2",
-    "event-kit": "^1.0.0",
+    "event-kit": "^2.5.3",
     "fs-plus": "^3.0.0",
-    "grim": "^1.2.1",
+    "grim": "^2.0.3",
     "@pulsar-edit/keyboard-layout": "^3.0.5",
-    "@pulsar-edit/pathwatcher": "^9.0.2",
-    "property-accessors": "^1",
+    "@pulsar-edit/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#e256588",
     "season": "^6.0.2"
   },
   "devDependencies": {
@@ -36,7 +35,7 @@
     "coffee-script": "1.7.0",
     "coffeelint": "1.16.0",
     "debounce": "1.0.0",
-    "electron": "30.0.9",
+    "electron": "43.1.0",
     "electron-mocha": "^13.1.0",
     "eslint": "2.2.0",
     "eslint-config-standard": "5.1.0",
