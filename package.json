@@ -21,8 +21,8 @@
     "event-kit": "^2.5.3",
     "fs-plus": "^3.0.0",
     "grim": "^2.0.3",
-    "@pulsar-edit/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#5897ea8",
-    "@pulsar-edit/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#7445539",
+    "@pulsar-edit/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#5897ea81e3f27eba827fa07cd8a9d7feb80079d7",
+    "@pulsar-edit/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#74455395539148bf35a19212c8f1af65366358f9",
     "season": "^6.0.2"
   },
   "devDependencies": {
