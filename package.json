@@ -27,7 +27,7 @@
     "fs-plus": "https://github.com/lumine-code/fs-plus.git#c00d99a85642969635218ed8862a37f7a0bce6e2",
     "grim": "^2.0.3",
     "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#eafa20675d3124fb993d4a5ee959dfeb57cf04a5",
-    "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#cf4b65d32fb363080789a5ae34a3a8f25cbbc90a",
+    "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#7846db77f62a4a25684fb469d9c53c7af9b43a42",
     "season": "^6.0.2"
   },
   "devDependencies": {
