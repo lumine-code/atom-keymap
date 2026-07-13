@@ -1,40 +1,54 @@
 name: CI
 
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
 
-env:
-  NODE_VERSION: 20
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  Test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: 20
+          - os: ubuntu-latest
+            node: 24
+          - os: macos-latest
+            node: 24
+          - os: windows-latest
+            node: 24
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Enable Git symlinks on Windows
+        if: runner.os == 'Windows'
+        run: git config --global core.symlinks true
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node }}
       - name: Install Linux prerequisites
-        if: ${{ runner.os == 'Linux' }}
-        run: sudo apt install libx11-dev libxkbfile-dev libwayland-dev libxkbcommon-dev libxkbcommon-x11-dev libxkbcommon0 xkb-data
-
-      - name: Install Python dependencies (macOS)
-        if: "contains(matrix.os, 'macos')"
-        run: brew install python-setuptools
-
-      - name: Install Python dependencies (Linux)
-        if: "contains(matrix.os, 'ubuntu')"
-        run: python3 -m pip install setuptools
-
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev libxkbfile-dev libwayland-dev libxkbcommon-dev libxkbcommon-x11-dev xkb-data xvfb
       - name: Install dependencies
-        run: npm install
-      #- name: Rebuild dependencies for Electron
-      #  run: npm run rebuild
-      - name: Run tests
-        uses: coactions/setup-xvfb@v1.0.1
-        with:
-          run: npm test
+        run: npm ci
+      - name: Run tests on Linux
+        if: runner.os == 'Linux'
+        run: xvfb-run -a npm test
+      - name: Run tests on macOS and Windows
+        if: runner.os != 'Linux'
+        run: npm test
+      - name: Validate package contents
+        run: npm pack --dry-run

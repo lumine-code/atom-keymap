@@ -5,7 +5,7 @@ path = require 'path'
 temp = require 'temp'
 KeyboardLayout = require('@lumine-code/keyboard-layout')
 KeymapManager = require '../src/keymap-manager'
-{appendContent, stub, getFakeClock, mockProcessPlatform, buildKeydownEvent, buildKeyupEvent} = require './helpers/helpers'
+{appendContent, stub, getFakeClock, mockProcessPlatform, restoreProcessPlatform, buildKeydownEvent, buildKeyupEvent} = require './helpers/helpers'
 
 describe "KeymapManager", ->
   keymapManager = null
@@ -924,6 +924,7 @@ describe "KeymapManager", ->
 
     beforeEach ->
       getFakeClock().uninstall()
+      restoreProcessPlatform()
 
     describe "if called with a file path", ->
       it "loads the keybindings from the file at the given path", ->
@@ -933,7 +934,7 @@ describe "KeymapManager", ->
       describe "if called with watch: true", ->
         [keymapFilePath, subscription] = []
 
-        beforeEach ->
+        beforeEach (done) ->
           keymapFilePath = path.join(temp.mkdirSync('keymap-manager-spec'), "keymapManager.cson")
           fs.writeFileSync keymapFilePath, """
             '.a': 'ctrl-a': 'x'
@@ -941,15 +942,11 @@ describe "KeymapManager", ->
           keymapManager.loadKeymap(keymapFilePath, watch: true)
           subscription = keymapManager.watchSubscriptions[keymapFilePath]
           assert.equal(keymapManager.findKeyBindings(command: 'x').length, 1)
+          setTimeout(done, 100)
 
         describe "when the file is changed", ->
           it "reloads the file's key bindings and notifies ::onDidReloadKeymap observers with the keymap path", (done) ->
             done = debounce(done, 500)
-
-            fs.writeFileSync keymapFilePath, """
-              '.a': 'ctrl-a': 'y'
-              '.b': 'ctrl-b': 'z'
-            """
 
             keymapManager.onDidReloadKeymap (event) ->
               assert.equal(event.path, keymapFilePath)
@@ -958,58 +955,63 @@ describe "KeymapManager", ->
               assert.equal(keymapManager.findKeyBindings(command: 'z').length, 1)
               done()
 
+            fs.writeFileSync keymapFilePath, """
+              '.a': 'ctrl-a': 'y'
+              '.b': 'ctrl-b': 'z'
+            """
+
           it "reloads the file's key bindings and notifies ::onDidReloadKeymap observers with the keymap path even if the file is empty", (done) ->
             done = debounce(done, 500)
-
-            fs.writeFileSync keymapFilePath, ""
 
             keymapManager.onDidReloadKeymap (event) ->
               assert.equal(event.path, keymapFilePath)
               assert.equal(keymapManager.getKeyBindings().length, 0)
               done()
 
+            fs.writeFileSync keymapFilePath, ""
+
           it "reloads the file's key bindings and notifies ::onDidReloadKeymap observers with the keymap path even if the file has only comments", (done) ->
             done = debounce(done, 500)
+
+            keymapManager.onDidReloadKeymap (event) ->
+              assert.equal(event.path, keymapFilePath)
+              assert.equal(keymapManager.getKeyBindings().length, 0)
+              done()
 
             fs.writeFileSync keymapFilePath, """
             #  '.a': 'ctrl-a': 'y'
             #  '.b': 'ctrl-b': 'z'
             """
 
-            keymapManager.onDidReloadKeymap (event) ->
-              assert.equal(event.path, keymapFilePath)
-              assert.equal(keymapManager.getKeyBindings().length, 0)
-              done()
-
           it "emits an event, logs a warning and does not reload if there is a problem reloading the file", (done) ->
             done = debounce(done, 500)
 
             stub(console, 'warn')
-            fs.writeFileSync keymapFilePath, "junk1."
-
             keymapManager.onDidFailToReadFile ->
               assert(console.warn.callCount > 0)
               assert.equal(keymapManager.findKeyBindings(command: 'x').length, 1)
               done()
 
+            fs.writeFileSync keymapFilePath, "junk1."
+
         describe "when the file is removed", ->
           it "removes the bindings and notifies ::onDidUnloadKeymap observers with keymap path", (done) ->
-            fs.removeSync(keymapFilePath)
-
             keymapManager.onDidUnloadKeymap (event) ->
               assert.equal(event.path, keymapFilePath)
               assert.equal(keymapManager.findKeyBindings(command: 'x').length, 0)
               done()
+
+            fs.removeSync(keymapFilePath)
 
         describe "when the file is moved", ->
           it "removes the bindings", (done) ->
             newFilePath = path.join(temp.mkdirSync('keymap-manager-spec'), "other-guy.cson")
-            fs.moveSync(keymapFilePath, newFilePath)
-
             keymapManager.onDidUnloadKeymap (event) ->
               assert.equal(event.path, keymapFilePath)
               assert.equal(keymapManager.findKeyBindings(command: 'x').length, 0)
               done()
+
+            fs.moveSync(keymapFilePath, newFilePath)
 
         it "allows the watch to be cancelled via the returned subscription", (done) ->
           done = debounce(done, 100)
@@ -1028,13 +1030,15 @@ describe "KeymapManager", ->
 
             # Can start watching again after cancelling
             keymapManager.loadKeymap(keymapFilePath, watch: true)
-            fs.writeFileSync keymapFilePath, """
-              '.a': 'ctrl-a': 'q'
-            """
-
             keymapManager.onDidReloadKeymap ->
               assert.equal(keymapManager.findKeyBindings(command: 'q').length, 1)
               done()
+
+            setTimeout (->
+              fs.writeFileSync keymapFilePath, """
+                '.a': 'ctrl-a': 'q'
+              """
+            ), 100
 
           setTimeout(afterWaiting, 500)
 

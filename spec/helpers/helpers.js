@@ -40,6 +40,10 @@ export function mockProcessPlatform (platform) {
   processPlatform = platform
 }
 
+export function restoreProcessPlatform () {
+  processPlatform = originalProcessPlatform
+}
+
 export function buildKeydownEvent (props) {
   return buildKeyboardEvent('keydown', props)
 }
