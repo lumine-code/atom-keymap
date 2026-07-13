@@ -1,10 +1,10 @@
-# Atom keymap
+# @lumine-code/atom-keymap
 
-Pulsar's DOM-aware keymap module
+Lumine's DOM-aware keymap module
 
 ```js
 var KeymapManager, keymaps;
-KeymapManager = require('atom-keymap')
+KeymapManager = require('@lumine-code/atom-keymap')
 
 keymaps = new KeymapManager
 keymaps.defaultTarget = document.body

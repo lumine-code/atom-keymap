@@ -3,7 +3,7 @@ debounce = require 'debounce'
 fs = require 'fs-plus'
 path = require 'path'
 temp = require 'temp'
-KeyboardLayout = require('@pulsar-edit/keyboard-layout')
+KeyboardLayout = require('@lumine-code/keyboard-layout')
 KeymapManager = require '../src/keymap-manager'
 {appendContent, stub, getFakeClock, mockProcessPlatform, buildKeydownEvent, buildKeyupEvent} = require './helpers/helpers'
 

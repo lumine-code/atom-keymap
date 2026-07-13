@@ -1,7 +1,7 @@
 {
-  "name": "@pulsar-edit/atom-keymap",
-  "version": "9.1.0",
-  "description": "Pulsar's DOM-aware keymap module",
+  "name": "@lumine-code/atom-keymap",
+  "version": "10.0.0",
+  "description": "Lumine's DOM-aware keymap module",
   "main": "./src/keymap-manager",
   "engines": {
     "node": ">=20"
@@ -13,7 +13,8 @@
     "atomdoc": "grunt shell:update-atomdoc atomdoc",
     "rebuild": "electron-rebuild -f -w keyboard-layout"
   },
-  "repository": "https://github.com/pulsar-edit/atom-keymap",
+  "repository": "https://github.com/lumine-code/atom-keymap",
+  "bugs": "https://github.com/lumine-code/atom-keymap/issues",
   "license": "MIT",
   "dependencies": {
     "@electron/rebuild": "^4.2.0",
@@ -21,8 +22,8 @@
     "event-kit": "^2.5.3",
     "fs-plus": "^3.0.0",
     "grim": "^2.0.3",
-    "@pulsar-edit/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#862dfbaa62ec7d70e560fdfe975b8660febae70f",
-    "@pulsar-edit/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#74455395539148bf35a19212c8f1af65366358f9",
+    "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#eafa20675d3124fb993d4a5ee959dfeb57cf04a5",
+    "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#2e957c8139cab478e0dc9ecbdb424f09ca80a53e",
     "season": "^6.0.2"
   },
   "devDependencies": {
