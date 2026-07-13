@@ -27,7 +27,7 @@
     "grim": "^2.0.3",
     "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#925a7d94243fa2ef3e971513feea36b85374a3de",
     "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#de08d8a2c3bd1c18aabc0669920c7ae2e895241a",
-    "season": "https://github.com/lumine-code/season.git#fcc131d0eb05d6ff1667c91b23d795fdd6fb2324"
+    "season": "https://github.com/lumine-code/season.git#721e25f3a41fd9b73419bba7af5057c1a006fd5d"
   },
   "devDependencies": {
     "@sinonjs/fake-timers": "^15.0.0",
