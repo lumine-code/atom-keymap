@@ -12,3 +12,5 @@ Gruntfile.coffee
 npm-debug.log
 script
 spec
+/.github/
+**/.github/
