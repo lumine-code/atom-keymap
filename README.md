@@ -1,6 +1,20 @@
 # @lumine-code/atom-keymap
 
-Lumine's DOM-aware keymap module
+Provides DOM-aware keymap management for Lumine and Electron applications.
+
+## Features
+
+- **DOM awareness**: resolves bindings against the focused element and its ancestors.
+- **Key sequences**: supports multi-keystroke bindings, keyup handlers, and partial-match timeouts.
+- **Layout handling**: normalizes keyboard events across operating systems and keyboard layouts.
+
+## Installation
+
+```sh
+npm install @lumine-code/atom-keymap
+```
+
+## Usage
 
 ```js
 var KeymapManager, keymaps;
@@ -33,5 +47,9 @@ window.addEventListener('core:move-down', (event) => console.log('down', event))
 
 The tests for this module *must* be run in Electron because they depend on browser APIs.
 
-* Tests can be run in batch mode with `npm test`
-* If you want to use the debugger, profiler, etc or just speed up your flow by being able to refresh the DevTools window to re-run tests, use the `npm run test-drive` script. This will keep the DevTools open instead of exiting after the test run.
+- Tests can be run in batch mode with `npm test`.
+- Use `npm run test-drive` to keep DevTools open for debugging, profiling, and repeated test runs.
+
+## Contributing
+
+Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!

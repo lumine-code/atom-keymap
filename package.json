@@ -1,7 +1,8 @@
 {
   "name": "@lumine-code/atom-keymap",
+  "author": "lumine-code",
   "version": "10.0.0",
-  "description": "Lumine's DOM-aware keymap module",
+  "description": "Provides DOM-aware keymap management for Lumine and Electron applications.",
   "main": "./src/keymap-manager",
   "engines": {
     "node": ">=20"
@@ -16,6 +17,9 @@
   "repository": "https://github.com/lumine-code/atom-keymap",
   "bugs": "https://github.com/lumine-code/atom-keymap/issues",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@electron/rebuild": "^4.2.0",
     "clear-cut": "^2",
