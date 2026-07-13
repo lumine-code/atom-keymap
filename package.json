@@ -28,7 +28,7 @@
     "grim": "^2.0.3",
     "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#eafa20675d3124fb993d4a5ee959dfeb57cf04a5",
     "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#7846db77f62a4a25684fb469d9c53c7af9b43a42",
-    "season": "^6.0.2"
+    "season": "https://github.com/lumine-code/season.git#fcc131d0eb05d6ff1667c91b23d795fdd6fb2324"
   },
   "devDependencies": {
     "babel-cli": "6.5.1",
