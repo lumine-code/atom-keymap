@@ -1,8 +1,11 @@
 {$$} = require 'space-pencil'
 debounce = require 'debounce'
 fs = require 'fs-plus'
+nativeFs = require 'fs'
+os = require 'os'
 path = require 'path'
-temp = require 'temp'
+temp =
+  mkdirSync: (prefix) -> nativeFs.mkdtempSync(path.join(os.tmpdir(), "#{prefix}-"))
 KeyboardLayout = require('@lumine-code/keyboard-layout')
 KeymapManager = require '../src/keymap-manager'
 {appendContent, stub, getFakeClock, mockProcessPlatform, restoreProcessPlatform, buildKeydownEvent, buildKeyupEvent} = require './helpers/helpers'

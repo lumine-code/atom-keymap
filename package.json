@@ -8,10 +8,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "clean": "rimraf lib && rimraf api.json",
+    "clean": "node -e \"const fs=require('fs'); for (const path of ['lib', 'api.json']) fs.rmSync(path, {recursive:true, force:true})\"",
     "test": "electron-mocha --renderer --no-sandbox --preload spec/helpers/setup.js spec/*-spec.*",
-    "test-drive": "SUPPRESS_EXIT=true electron-mocha --no-colors --renderer --interactive --preload spec/helpers/setup.js spec/*-spec.*",
-    "atomdoc": "grunt shell:update-atomdoc atomdoc",
+    "test-drive": "cross-env SUPPRESS_EXIT=true electron-mocha --no-colors --renderer --interactive --preload spec/helpers/setup.js spec/*-spec.*",
     "rebuild": "electron-rebuild -f -w keyboard-layout"
   },
   "repository": "https://github.com/lumine-code/atom-keymap",
@@ -24,37 +23,29 @@
     "@electron/rebuild": "^4.2.0",
     "clear-cut": "^2",
     "event-kit": "^2.5.3",
-    "fs-plus": "https://github.com/lumine-code/fs-plus.git#c00d99a85642969635218ed8862a37f7a0bce6e2",
+    "fs-plus": "https://github.com/lumine-code/fs-plus.git#6be512460cd7a6d617277f9608b3fcba264cb3be",
     "grim": "^2.0.3",
-    "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#eafa20675d3124fb993d4a5ee959dfeb57cf04a5",
-    "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#7846db77f62a4a25684fb469d9c53c7af9b43a42",
+    "@lumine-code/keyboard-layout": "https://github.com/lumine-code/keyboard-layout.git#925a7d94243fa2ef3e971513feea36b85374a3de",
+    "@lumine-code/pathwatcher": "https://github.com/lumine-code/node-pathwatcher.git#de08d8a2c3bd1c18aabc0669920c7ae2e895241a",
     "season": "https://github.com/lumine-code/season.git#fcc131d0eb05d6ff1667c91b23d795fdd6fb2324"
   },
   "devDependencies": {
-    "babel-cli": "6.5.1",
-    "babel-eslint": "5.0.0-beta10",
-    "babel-preset-es2015": "6.5.0",
-    "babel-preset-stage-0": "6.5.0",
-    "babel-register": "6.5.2",
-    "chai": "3.5.0",
-    "coffee-script": "1.7.0",
-    "coffeelint": "1.16.0",
-    "debounce": "1.0.0",
+    "@sinonjs/fake-timers": "^15.0.0",
+    "chai": "^4.5.0",
+    "coffeescript": "^2.7.0",
+    "cross-env": "^10.1.0",
+    "debounce": "^2.2.0",
     "electron": "43.1.0",
     "electron-mocha": "^13.1.0",
-    "eslint": "2.2.0",
-    "eslint-config-standard": "5.1.0",
-    "eslint-plugin-promise": "1.0.8",
-    "eslint-plugin-standard": "1.3.1",
-    "grunt": "0.4.1",
-    "grunt-atomdoc": "1.0.0",
-    "grunt-cli": "0.1.8",
-    "grunt-contrib-coffee": "0.9.0",
-    "grunt-shell": "0.2.2",
-    "lolex": "1.4.0",
-    "rimraf": "2.2.2",
-    "sinon": "1.17.3",
-    "space-pencil": "0.3.0",
-    "temp": "0.8.3"
+    "sinon": "^22.0.0",
+    "space-pencil": "0.3.0"
+  },
+  "overrides": {
+    "brace-expansion@2.0.1": "2.0.3",
+    "diff": "^8.0.3",
+    "glob": "^10.5.0",
+    "js-yaml": "^4.3.0",
+    "minimatch": "^9.0.7",
+    "serialize-javascript": "^7.0.5"
   }
 }

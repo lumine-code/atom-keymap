@@ -2,8 +2,8 @@
 
 'use strict'
 
-import lolex from 'lolex'
-import sinon from 'sinon'
+const FakeTimers = require('@sinonjs/fake-timers')
+const sinon = require('sinon')
 
 let sinonSandbox, fakeClock, processPlatform, originalProcessPlatform
 
@@ -13,8 +13,8 @@ Object.defineProperty(process, 'platform', {get: () => processPlatform})
 
 beforeEach(function () {
   document.body.innerHTML = ''
-  sinonSandbox = sinon.sandbox.create()
-  fakeClock = lolex.install()
+  sinonSandbox = sinon.createSandbox()
+  fakeClock = FakeTimers.install()
 })
 
 afterEach(function () {
@@ -23,36 +23,39 @@ afterEach(function () {
   processPlatform = originalProcessPlatform
 })
 
-export function appendContent (element) {
+function appendContent (element) {
   document.body.appendChild(element)
   return element
 }
 
-export function stub () {
-  return sinonSandbox.stub(...arguments)
+function stub () {
+  const [object, method, replacement] = arguments
+  if (object == null) return sinonSandbox.stub()
+  const result = sinonSandbox.stub(object, method)
+  return replacement ? result.callsFake(replacement) : result
 }
 
-export function getFakeClock () {
+function getFakeClock () {
   return fakeClock
 }
 
-export function mockProcessPlatform (platform) {
+function mockProcessPlatform (platform) {
   processPlatform = platform
 }
 
-export function restoreProcessPlatform () {
+function restoreProcessPlatform () {
   processPlatform = originalProcessPlatform
 }
 
-export function buildKeydownEvent (props) {
+function buildKeydownEvent (props) {
   return buildKeyboardEvent('keydown', props)
 }
 
-export function buildKeyupEvent (props) {
+function buildKeyupEvent (props) {
   return buildKeyboardEvent('keyup', props)
 }
 
-export function buildKeyboardEvent (type, props) {
+function buildKeyboardEvent (type, props) {
   let {key, code, ctrlKey, shiftKey, altKey, metaKey, target, modifierState} = props
   if (!modifierState) modifierState = {}
 
@@ -85,4 +88,14 @@ export function buildKeyboardEvent (type, props) {
   }})
 
   return event
+}
+
+module.exports = {
+  appendContent,
+  stub,
+  getFakeClock,
+  mockProcessPlatform,
+  restoreProcessPlatform,
+  buildKeydownEvent,
+  buildKeyupEvent
 }
