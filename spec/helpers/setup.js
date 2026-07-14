@@ -1,5 +1,3 @@
-require('coffeescript/register')
-
 global.assert = require('chai').assert
 
 if (process.env.SUPPRESS_EXIT) {

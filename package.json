@@ -9,8 +9,8 @@
   },
   "scripts": {
     "clean": "node -e \"const fs=require('fs'); for (const path of ['lib', 'api.json']) fs.rmSync(path, {recursive:true, force:true})\"",
-    "test": "electron-mocha --renderer --no-sandbox --preload spec/helpers/setup.js spec/*-spec.*",
-    "test-drive": "cross-env SUPPRESS_EXIT=true electron-mocha --no-colors --renderer --interactive --preload spec/helpers/setup.js spec/*-spec.*",
+    "test": "electron --no-sandbox spec/support/runner",
+    "test-drive": "cross-env SUPPRESS_EXIT=true electron --no-sandbox spec/support/runner",
     "rebuild": "electron-rebuild -f -w keyboard-layout"
   },
   "repository": "https://github.com/lumine-code/atom-keymap",
@@ -32,11 +32,10 @@
   "devDependencies": {
     "@sinonjs/fake-timers": "^15.0.0",
     "chai": "^4.5.0",
-    "coffeescript": "^2.7.0",
     "cross-env": "^10.1.0",
     "debounce": "^2.2.0",
     "electron": "43.1.0",
-    "electron-mocha": "^13.1.0",
+    "jasmine": "^6.3.0",
     "sinon": "^22.0.0",
     "space-pencil": "0.3.0"
   },

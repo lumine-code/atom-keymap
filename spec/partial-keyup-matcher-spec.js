@@ -13,10 +13,7 @@ describe('PartialKeyupMatcher', () => {
     const matches = matcher.getMatches('^ctrl')
     assert.equal(matches.length, 1)
     assert.equal(matches[0], kb)
-    it('removes match returned', () => {
-      const matches = matcher.getMatches('^ctrl')
-      assert.equal(matches.length, 0)
-    })
+    assert.equal(matcher.getMatches('^ctrl').length, 0)
   })
 
   it('does not match multiple keyup binding on single keyup events', () => {
@@ -41,10 +38,7 @@ describe('PartialKeyupMatcher', () => {
     matches = matcher.getMatches('^shift')
     assert.equal(matches.length, 1)
     assert.equal(matches[0], kb)
-    it('removes match returned', () => {
-      const matches = matcher.getMatches('^ctrl')
-      assert.equal(matches.length, 0)
-    })
+    assert.equal(matcher.getMatches('^ctrl').length, 0)
   })
 })
 
