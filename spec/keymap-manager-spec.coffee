@@ -1,6 +1,6 @@
 {$$} = require 'space-pencil'
 debounce = require 'debounce'
-fs = require 'fs-plus'
+fs = require '@lumine-code/fs-plus'
 nativeFs = require 'fs'
 os = require 'os'
 path = require 'path'
