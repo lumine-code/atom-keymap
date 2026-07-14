@@ -9,8 +9,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 let KeymapManager;
-const CSON = require('season');
-const fs = require('fs-plus');
+const CSON = require('@lumine-code/season');
+const fs = require('@lumine-code/fs-plus');
 const {isSelectorValid} = require('clear-cut');
 const path = require('path');
 const {File} = require('@lumine-code/pathwatcher');
