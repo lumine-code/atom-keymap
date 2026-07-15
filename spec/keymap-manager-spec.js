@@ -2,7 +2,15 @@ var $$, KeyboardLayout, KeymapManager, appendContent, buildKeydownEvent, buildKe
 
 ({$$} = require('space-pencil'));
 
-debounce = require('debounce');
+// Trailing-edge debounce (matches the `debounce` package's default behavior).
+debounce = function (fn, wait) {
+  var timeout;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () { fn.apply(context, args); }, wait);
+  };
+};
 
 fs = require('@lumine-code/fs-plus');
 
