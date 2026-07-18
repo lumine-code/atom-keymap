@@ -50,6 +50,17 @@ The tests for this module *must* be run in Electron because they depend on brows
 - Tests can be run in batch mode with `npm test`.
 - Use `npm run test-drive` to keep DevTools open for debugging, profiling, and repeated test runs.
 
+## Changes
+
+This is the Lumine fork of `atom-keymap`, published under the `@lumine-code` scope. Relative to the upstream Pulsar package it:
+
+- Rebrands the package to `@lumine-code/atom-keymap` and releases it as a new major version.
+- Unifies the test suite on Jasmine 6 and JavaScript.
+- Drops `chai` and `debounce` for self-contained test helpers, and removes the npm overrides they required.
+- Modernizes dependencies onto the `@lumine-code` forks of `season`, `fs-plus`, `pathwatcher`, and `keyboard-layout`.
+- Adds cross-platform CI and modernizes the publish workflows.
+- Updates the license attribution for Lumine.
+
 ## Contributing
 
 Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!
